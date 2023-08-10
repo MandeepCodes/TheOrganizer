@@ -2,13 +2,30 @@
 {
     internal class MainService
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main entry point
+        /// </summary>
+        /// <param name="args"></param>
+        private static void Main(string[] args)
         {
-            // one listerner service
+            OperatingSystem os = Environment.OSVersion;
 
-            // listener activates other service 
-
-
+            if (os.Platform == PlatformID.Win32NT)
+            {
+                IOSMain main = new WindowsMain();
+            }
+            else if (os.Platform == PlatformID.Unix)
+            {
+                // implement for linux
+            }
+            else if (os.Platform == PlatformID.MacOSX)
+            {
+                // implement of Mac
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }
