@@ -9,10 +9,12 @@
         private static void Main(string[] args)
         {
             OperatingSystem os = Environment.OSVersion;
+            IOSMain main = null;
+
 
             if (os.Platform == PlatformID.Win32NT)
             {
-                IOSMain main = new WindowsMain();
+                main = new WindowsMain();
             }
             else if (os.Platform == PlatformID.Unix)
             {
@@ -26,6 +28,12 @@
             {
                 Environment.Exit(0);
             }
+
+
+            //Call in order
+            main.PreStart();
+            main.Start();
+
         }
     }
 }

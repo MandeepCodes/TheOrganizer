@@ -4,6 +4,8 @@
     {
         public void PreStart()
         {
+            // Prep the logger
+            // load the configs
             throw new NotImplementedException();
         }
 

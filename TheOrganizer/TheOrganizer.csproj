@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="API\Processing\" />
+    <Folder Include="Imp\ControllerService\Mac\" />
+    <Folder Include="Imp\ControllerService\Linux\" />
+  </ItemGroup>
+
 </Project>

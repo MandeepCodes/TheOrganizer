@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheOrganizer", "TheOrganizer.csproj", "{90CEB14A-D079-4B85-B5AD-96ACBD7B4B9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheOrganizer", "TheOrganizer.csproj", "{90CEB14A-D079-4B85-B5AD-96ACBD7B4B9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUI", "..\WinUI\WinUI.csproj", "{04F75EA8-E121-4310-9845-3873E7F3D993}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{90CEB14A-D079-4B85-B5AD-96ACBD7B4B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90CEB14A-D079-4B85-B5AD-96ACBD7B4B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90CEB14A-D079-4B85-B5AD-96ACBD7B4B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F75EA8-E121-4310-9845-3873E7F3D993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F75EA8-E121-4310-9845-3873E7F3D993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F75EA8-E121-4310-9845-3873E7F3D993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F75EA8-E121-4310-9845-3873E7F3D993}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
