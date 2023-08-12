@@ -39,14 +39,14 @@ namespace WinUI
             double windowHeight = Height;
 
             Left = (screenWidth - windowWidth) / 2;
-            Top = (screenHeight - windowHeight) / 2;
+            Top = (screenHeight - windowHeight) / 3;
         }
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = searchTextBox.Text;
 
+            
             // Implement your live search logic here based on the entered query
-            // For simplicity, let's display the query as it's typed
             Title = query;
         }
     }
