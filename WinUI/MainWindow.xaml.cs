@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,54 @@ namespace WinUI
         public MainWindow()
         {
             InitializeComponent();
+
+            // Set window attributes
+            Topmost = true; // Always on top
+            ShowInTaskbar = false; // Don't show in the taskbar
+
+            
+            Thread t = new Thread(KeyPress);
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+        }
+
+        public void KeyPress()
+        {
+            while (true)
+            {
+                Thread.Sleep(100);
+
+                bool isCtrlPressed = (Keyboard.GetKeyStates(Key.LeftCtrl) & KeyStates.Down) > 0;
+                bool isSpacePressed = (Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0;
+
+                Dispatcher.Invoke(() =>
+                {
+                    if (isCtrlPressed && isSpacePressed)
+                    {
+                        // Toggle UI visibility
+                        ToggleUIVisibility();
+                    }
+                });
+            }
+           
+        }
+
+        private bool uiVisible = true;
+
+        private void ToggleUIVisibility()
+        {
+            uiVisible = !uiVisible;
+
+            // Update UI elements' visibility based on the state
+            searchTextBox.Visibility = uiVisible ? Visibility.Visible : Visibility.Collapsed;
+            // Toggle visibility of other UI elements similarly
+
+            if (uiVisible)
+            {
+                // Set focus to the searchTextBox when making it visible
+                searchTextBox.Focus();
+                Keyboard.Focus(searchTextBox);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,7 +79,7 @@ namespace WinUI
             // Center the window on the screen
             CenterWindowOnScreen();
         }
-
+       
         private void CenterWindowOnScreen()
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
