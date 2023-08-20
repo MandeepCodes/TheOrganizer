@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WinUI
 {
@@ -29,7 +19,6 @@ namespace WinUI
             Topmost = true; // Always on top
             ShowInTaskbar = false; // Don't show in the taskbar
 
-            
             Thread t = new Thread(KeyPress);
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
@@ -53,7 +42,6 @@ namespace WinUI
                     }
                 });
             }
-           
         }
 
         private bool uiVisible = true;
@@ -79,7 +67,7 @@ namespace WinUI
             // Center the window on the screen
             CenterWindowOnScreen();
         }
-       
+
         private void CenterWindowOnScreen()
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -90,11 +78,17 @@ namespace WinUI
             Left = (screenWidth - windowWidth) / 2;
             Top = (screenHeight - windowHeight) / 3;
         }
+
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = searchTextBox.Text;
 
-            
+            if (query == "spotify")
+            {
+                string a = @"C:\Users\ms403\AppData\Local\Microsoft\WindowsApps\Spotify.exe";
+                Process.Start(a);
+            }
+
             // Implement your live search logic here based on the entered query
             Title = query;
         }
