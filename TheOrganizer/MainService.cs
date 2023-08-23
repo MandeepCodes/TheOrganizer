@@ -1,4 +1,6 @@
-﻿namespace TheOrganizer
+﻿using Core;
+
+namespace TheOrganizer
 {
     internal class MainService
     {
@@ -8,32 +10,13 @@
         /// <param name="args"></param>
         private static void Main(string[] args)
         {
-            OperatingSystem os = Environment.OSVersion;
-            IOSMain main = null;
+            // TODO: Make this project run as a service
+            // Detemine the OS and run OS specific services
 
+            //STEP1: Register HOTKEY
+            Registrar.Initialize("Window");
 
-            if (os.Platform == PlatformID.Win32NT)
-            {
-                main = new WindowsMain();
-            }
-            else if (os.Platform == PlatformID.Unix)
-            {
-                // implement for linux
-            }
-            else if (os.Platform == PlatformID.MacOSX)
-            {
-                // implement of Mac
-            }
-            else
-            {
-                Environment.Exit(0);
-            }
-
-
-            //Call in order
-            main.PreStart();
-            main.Start();
-
+            IGlobalHotKey globalHotKey = Registrar.GetInstance<IGlobalHotKey>();
         }
     }
 }

@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Imp\ControllerService\Mac\" />
-    <Folder Include="Imp\ControllerService\Linux\" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

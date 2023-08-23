@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheOrganizer", "TheOrganize
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinUI", "..\WinUI\WinUI.csproj", "{04F75EA8-E121-4310-9845-3873E7F3D993}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{577F8AB8-3887-4722-8427-B1C59BEA94B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{04F75EA8-E121-4310-9845-3873E7F3D993}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04F75EA8-E121-4310-9845-3873E7F3D993}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04F75EA8-E121-4310-9845-3873E7F3D993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577F8AB8-3887-4722-8427-B1C59BEA94B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577F8AB8-3887-4722-8427-B1C59BEA94B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577F8AB8-3887-4722-8427-B1C59BEA94B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577F8AB8-3887-4722-8427-B1C59BEA94B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
