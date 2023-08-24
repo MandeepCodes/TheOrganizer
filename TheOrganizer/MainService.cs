@@ -17,6 +17,11 @@ namespace TheOrganizer
             Registrar.Initialize("Window");
 
             IGlobalHotKey globalHotKey = Registrar.GetInstance<IGlobalHotKey>();
+            globalHotKey.RegisterAsync("");
+            Console.ReadLine();
+            Console.ReadLine();
+            Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }

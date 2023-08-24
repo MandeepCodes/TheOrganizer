@@ -11,7 +11,17 @@ namespace TheOrganizer
 
         public void RegisterAsync(string globalHotKey)
         {
-            throw new NotImplementedException();
+            HotkeyManager.AddOrReplaceHotkey(
+            modifierKeys: KeyModifier.Control,
+            key: VirtualKey.SPACE,
+            OnHotkeyPressed: OnCtrlSpacePressed, // Call the method when hotkey is pressed
+            noRepeat: true);
+        }
+
+        private static void OnCtrlSpacePressed(HotkeyEventArgs e)
+        {
+            // Replace this with your own logic
+            Console.WriteLine("Ctrl+Space is pressed!");
         }
 
         public void UnregisterAsync(string globalHotKey)
