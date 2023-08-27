@@ -40,10 +40,14 @@ namespace Core
                                     registeredInstances.Add(type, instance);
                                 }
                             }
-                            instance.RegisterClass();
                         }
                     }
                 }
+            }
+
+            foreach (var inst in registeredInstances.Values)
+            {
+                inst.RegisterClass();
             }
         }
 
@@ -52,7 +56,7 @@ namespace Core
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T? GetInstance<T>() where T : class
+        public static T GetInstance<T>() where T : class
         {
             lock (lockObject)
             {
