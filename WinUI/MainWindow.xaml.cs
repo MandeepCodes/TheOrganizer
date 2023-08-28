@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
+using System.Net.Sockets;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Text;
 
 namespace WinUI
 {
@@ -36,22 +38,23 @@ namespace WinUI
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string serverIP = "127.0.0.1";
+            int serverPort = 12345;
+
+            UdpClient udpClient = new UdpClient();
+            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
+
             string query = searchTextBox.Text;
+
+            byte[] messageData = Encoding.UTF8.GetBytes(query);
+            udpClient.SendAsync(messageData, messageData.Length, serverEndPoint);
 
             if (query == "spotify")
             {
                 string a = @"C:\Users\ms403\AppData\Local\Microsoft\WindowsApps\Spotify.exe";
                 Process.Start(a);
             }
-            else if(query == "close chrome")
-            {
-                Process[] processes = Process.GetProcessesByName("chrome");
-                if (processes.Length > 0)
-                {
-                    processes[0].CloseMainWindow();
-                }
-            }
-            else if(query == "exit")
+            else if (query == "exit")
             {
                 Environment.Exit(0);
             }

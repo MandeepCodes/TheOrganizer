@@ -34,5 +34,6 @@
                  Margin="0"
                  TextChanged="SearchTextBox_TextChanged"
                  Panel.ZIndex="1" />
+        
     </Grid>
 </Window>

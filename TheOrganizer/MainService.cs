@@ -19,6 +19,8 @@ namespace TheOrganizer
             IGlobalHotKey globalHotKey = Registrar.GetInstance<IGlobalHotKey>();
             globalHotKey.RegisterAsync("");
             
+            IProcessingPipeline pipeline = Registrar.GetInstance<IProcessingPipeline>();
+
             Console.ReadLine();
         }
     }
