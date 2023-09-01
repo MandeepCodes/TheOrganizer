@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Sockets;
-using System.Net;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Text;
 
 namespace WinUI
 {
@@ -14,6 +13,12 @@ namespace WinUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        // TODO: Load this from config manager
+        private string serverIP = "127.0.0.1";
+
+        private int serverPort = 12345;
+        private UdpClient udpClient;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -23,6 +28,9 @@ namespace WinUI
             ShowInTaskbar = false; // Don't show in the taskbar
             searchTextBox.Focus();
             Keyboard.Focus(searchTextBox);
+
+            udpClient = new UdpClient(serverIP, serverPort);
+            Listen();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -38,29 +46,27 @@ namespace WinUI
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string serverIP = "127.0.0.1";
-            int serverPort = 12345;
-
-            UdpClient udpClient = new UdpClient();
-            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
-
             string query = searchTextBox.Text;
-
             byte[] messageData = Encoding.UTF8.GetBytes(query);
-            udpClient.SendAsync(messageData, messageData.Length, serverEndPoint);
-
-            if (query == "spotify")
-            {
-                string a = @"C:\Users\ms403\AppData\Local\Microsoft\WindowsApps\Spotify.exe";
-                Process.Start(a);
-            }
-            else if (query == "exit")
-            {
-                Environment.Exit(0);
-            }
-
-            // Implement your live search logic here based on the entered query
-            Title = query;
+            udpClient.SendAsync(messageData, messageData.Length);
         }
+
+        private async void Listen()
+        {
+            while (true)
+            {
+                var res = await udpClient.ReceiveAsync();
+                if (res != null)
+                {
+                    var xx = Encoding.UTF8.GetString(res.Buffer);
+                    if (xx == "exit")
+                    {
+                        Environment.Exit(0);
+                    }
+                }
+            }
+        }
+
+        //TODO: Create a dropdown that shows possible action item and results
     }
 }

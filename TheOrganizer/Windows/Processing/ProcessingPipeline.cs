@@ -30,6 +30,8 @@ namespace TheOrganizer
             return true;
         }
 
+        ILogger logger = Registrar.GetInstance<ILogger>();
+
         public async Task StartServer()
         {
             int port = 12345;
@@ -41,7 +43,7 @@ namespace TheOrganizer
             {
                 UdpReceiveResult receivedResult = await udpServer.ReceiveAsync();
                 string receivedMessage = Encoding.UTF8.GetString(receivedResult.Buffer);
-                Console.WriteLine($"Received from {receivedResult.RemoteEndPoint}: {receivedMessage}");
+                logger.LogAsync(LogType.Warn, $"Received from {receivedResult.RemoteEndPoint}: {receivedMessage}");
 
                 if (receivedMessage == "close chrome")
                 {
@@ -52,7 +54,7 @@ namespace TheOrganizer
                     }
                 }
 
-                string responseMessage = "Server received your message.";
+                string responseMessage = receivedMessage;
                 byte[] responseData = Encoding.UTF8.GetBytes(responseMessage);
                 await udpServer.SendAsync(responseData, responseData.Length, receivedResult.RemoteEndPoint);
             }
