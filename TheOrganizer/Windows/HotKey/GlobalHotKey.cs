@@ -4,11 +4,19 @@ namespace TheOrganizer
 {
     public class GlobalHotkey : WindowBase, IGlobalHotKey
     {
-        IGUIController gUIController = null;
-        static bool guiState = false;
+        private IGUIController gUIController = null;
+        private static bool guiState = false;
+        private ILogger logger = null;
+
         public override bool RegisterClass()
         {
+            return true;
+        }
+
+        public override bool StartClass()
+        {
             gUIController = Registrar.GetInstance<IGUIController>();
+            logger = Registrar.GetInstance<ILogger>();
             return true;
         }
 
@@ -17,14 +25,14 @@ namespace TheOrganizer
             HotkeyManager.AddOrReplaceHotkey(
             modifierKeys: KeyModifier.Control,
             key: VirtualKey.SPACE,
-            OnHotkeyPressed: OnCtrlSpacePressed, // Call the method when hotkey is pressed
+            OnHotkeyPressed: OnCtrlSpacePressed,
             noRepeat: true);
         }
 
         private void OnCtrlSpacePressed(HotkeyEventArgs e)
         {
             // Replace this with your own logic
-            Console.WriteLine("Ctrl+Space is pressed!");
+            logger.LogAsync(LogType.Debug, "Ctrl+Space is pressed!");
             if (!guiState)
             {
                 guiState = true;

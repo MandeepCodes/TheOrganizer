@@ -2,7 +2,7 @@
 {
     public interface IConfig
     {
-        object GetConfig(string key);
+        Configuration GetConfig();
 
         void LoadConfigs();
 

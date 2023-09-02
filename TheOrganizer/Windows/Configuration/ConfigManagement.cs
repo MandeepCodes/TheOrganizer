@@ -5,17 +5,17 @@ namespace TheOrganizer
 {
     public class ConfigManagement : WindowBase, IConfig
     {
-        private static Configuration configuration;
+        private static Configuration Configuration;
 
-        public object GetConfig(string key)
+        public Configuration GetConfig()
         {
-            throw new NotImplementedException();
+            return Configuration;
         }
 
         public void LoadConfigs()
         {
             var text = File.ReadAllText("Windows\\settings.json");
-            configuration = JsonSerializer.Deserialize<Configuration>(text);
+            Configuration = JsonSerializer.Deserialize<Configuration>(text);
         }
 
         public override bool RegisterClass()
@@ -27,6 +27,11 @@ namespace TheOrganizer
         public void SetConfig(string key, object value)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool StartClass()
+        {
+            return true;
         }
     }
 }

@@ -14,5 +14,10 @@ namespace TheOrganizer
             //load file 
             return true;
         }
+
+        public override bool StartClass()
+        {
+            return true;
+        }
     }
 }

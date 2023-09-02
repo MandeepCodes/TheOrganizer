@@ -49,6 +49,11 @@ namespace Core
             {
                 inst.RegisterClass();
             }
+
+            foreach (var inst in registeredInstances.Values)
+            {
+                inst.StartClass();
+            }
         }
 
         /// <summary>
