@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+	  <Content Include="Windows\settings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
   </ItemGroup>
 
 </Project>

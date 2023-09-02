@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -15,7 +16,6 @@ namespace WinUI
     {
         // TODO: Load this from config manager
         private string serverIP = "127.0.0.1";
-
         private int serverPort = 12345;
         private UdpClient udpClient;
 
