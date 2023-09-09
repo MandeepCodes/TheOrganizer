@@ -6,6 +6,6 @@
 
         Task StartListeningAsync();
 
-        Task StartSpeakingAsync();
+        void StartSpeaking(string newAction);
     }
 }
