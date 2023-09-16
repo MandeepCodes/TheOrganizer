@@ -4,11 +4,18 @@ using System.Reflection;
 
 namespace Core
 {
+    /// <summary>
+    /// Provides registration and retrieval of instances of classes that inherit from CoreBase.
+    /// </summary>
     public class Registrar
     {
         private static readonly Dictionary<Type, CoreBase> registeredInstances = new Dictionary<Type, CoreBase>();
         private static readonly object lockObject = new object(); // For thread safety
 
+        /// <summary>
+        /// Initializes the Registrar by scanning assemblies and registering compatible instances.
+        /// </summary>
+        /// <param name="os">The target operating system string for filtering.</param>
         public static void Initialize(string os)
         {
             Assembly[] cachedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -22,7 +29,7 @@ namespace Core
                 }
                 catch (ReflectionTypeLoadException)
                 {
-                    // Handle loading issues gracefully
+                    //TODO: Handle loading issues gracefully
                     continue;
                 }
 
@@ -45,6 +52,7 @@ namespace Core
                 }
             }
 
+            // Register and start the classes once they are instantiated.
             foreach (var inst in registeredInstances.Values)
             {
                 inst.RegisterClass();
@@ -57,10 +65,10 @@ namespace Core
         }
 
         /// <summary>
-        /// Gets the active Instace of the interface 
+        /// Gets the active instance of the specified interface type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">The interface type to retrieve an instance of.</typeparam>
+        /// <returns>The active instance of the specified interface, or null if not found.</returns>
         public static T GetInstance<T>() where T : class
         {
             lock (lockObject)

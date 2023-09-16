@@ -1,17 +1,20 @@
 ﻿namespace Core
 {
+    /// <summary>
+    /// Represents an interface for managing global hotkeys.
+    /// </summary>
     public interface IGlobalHotKey
     {
         /// <summary>
-        /// Registers the global hotkey
+        /// Registers a global hotkey asynchronously.
         /// </summary>
-        /// <param name="globalHotKey"></param>
+        /// <param name="globalHotKey">The string representation of the hotkey to register.</param>
         void RegisterAsync(string globalHotKey);
 
         /// <summary>
-        /// De-Register the global hotKey
+        /// De-registers a global hotkey asynchronously.
         /// </summary>
-        /// <param name="globalHotKey"></param>
+        /// <param name="globalHotKey">The string representation of the hotkey to de-register.</param>
         void UnregisterAsync(string globalHotKey);
     }
 }
