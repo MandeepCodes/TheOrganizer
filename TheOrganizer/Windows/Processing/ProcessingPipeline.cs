@@ -7,9 +7,11 @@ namespace TheOrganizer
     /// </summary>
     public class ProcessingPipeline : WindowBase, IProcessingPipeline
     {
+        #region Varibles
         private ILogger logger;
         public event GUICommandEventHandler GUICommand;
         private IMasterCommandHandler masterCommandHandler;
+        #endregion
 
         #region Core Base
 
@@ -42,7 +44,7 @@ namespace TheOrganizer
         /// <param name="str">The string to ingest and process.</param>
         public void Ingest(string str)
         {
-            logger.LogAsync(LogType.Debug, $"Received : {str}");
+            logger.LogAsync(LogType.Debug, $"Received input: {str}");
             Process(str.ToLower());
         }
 
@@ -58,6 +60,10 @@ namespace TheOrganizer
             if (newCommands.TryGetValue(data, out var action))
             {
                 action.Invoke(str);
+            }
+            else
+            {
+                logger.LogAsync(LogType.Debug, "No associated command with : " + str);
             }
         }
     }

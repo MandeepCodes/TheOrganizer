@@ -3,5 +3,22 @@
 	{
 		"IPAddress" : "127.0.0.1",
 		"Port" : 12345
+	},
+	"Commands":
+	{
+		"MasterCommands":
+		{
+			"VolumeCommand":"volume"
+		},
+		"ChildCommands":
+		{
+			"VolumeCommands":
+			{
+				"Max": "max",
+				"Mute": "mute",
+				"Up": "up",
+				"Down": "down"
+			}
+		}
 	}
 }

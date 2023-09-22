@@ -10,13 +10,17 @@ namespace TheOrganizer
         private ILogger logger;
         private Dictionary<string, Action<string>> MasterCommandMap = new Dictionary<string, Action<string>>();
         private IChildProcessingPipeline pipeline;
+        private IConfig config;
 
         /// <summary>
         /// Populates the master command map with predefined commands.
         /// </summary>
         public void PopulateCommands()
         {
-            MasterCommandMap.Add("volume", (string str) =>
+            var configuration = config.GetConfig();
+
+            MasterCommandMap.Add(configuration.Commands.MasterCommands.VolumeCommand,
+            (string str) =>
             {
                 logger.LogAsync(LogType.Debug, "Sending data to Volume processing pipline");
                 var volumeCommandMap = Registrar.GetInstance<IVolumeCommandHandler>().GetStudentCommandMap();
@@ -42,6 +46,7 @@ namespace TheOrganizer
         {
             logger = Registrar.GetInstance<ILogger>();
             pipeline = Registrar.GetInstance<IChildProcessingPipeline>();
+            config = Registrar.GetInstance<IConfig>();  
             PopulateCommands();
             return true;
         }

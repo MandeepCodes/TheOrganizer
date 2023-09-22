@@ -1,8 +1,5 @@
 ﻿using Core;
 using NAudio.CoreAudioApi;
-using System.Data;
-using System.Media;
-using System.Runtime.InteropServices;
 
 namespace TheOrganizer
 {
@@ -12,6 +9,7 @@ namespace TheOrganizer
     public class VolumeCommandHandler : WindowBase, IVolumeCommandHandler
     {
         private ILogger logger;
+        private IConfig config;
         private Dictionary<string, Action<string>> StudentCommandMap = new Dictionary<string, Action<string>>();
 
         /// <summary>
@@ -39,8 +37,9 @@ namespace TheOrganizer
         /// <returns>True if the class starts successfully, otherwise false.</returns>
         public override bool StartClass()
         {
-            PopulateCommands();
             logger = Registrar.GetInstance<ILogger>();
+            config = Registrar.GetInstance<IConfig>();
+            PopulateCommands();
             return true;
         }
 
@@ -49,25 +48,31 @@ namespace TheOrganizer
         /// </summary>
         public void PopulateCommands()
         {
-            StudentCommandMap.Add("up", (string str) =>
+            var configuration = config.GetConfig();
+
+            StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Up,
+            (string str) =>
             {
                 logger.LogAsync(LogType.Debug, "Increasing Volume");
                 IncreaseVolume(10.0f);
             });
 
-            StudentCommandMap.Add("down", (string str) =>
+            StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Down,
+            (string str) =>
             {
                 logger.LogAsync(LogType.Debug, "Decreasing Volume");
                 DecreaseVolume(10.0f);
             });
 
-            StudentCommandMap.Add("max", (string str) =>
+            StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Max,
+            (string str) =>
             {
                 logger.LogAsync(LogType.Debug, "Increasing Volume");
                 Max();
             });
 
-            StudentCommandMap.Add("mute", (string str) =>
+            StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Mute,
+            (string str) =>
             {
                 logger.LogAsync(LogType.Debug, "Decreasing Volume");
                 Mute();
@@ -76,52 +81,43 @@ namespace TheOrganizer
 
         private void IncreaseVolume(float volumeChangePercentage)
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            MMDevice defaultDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            MMDevice defaultDevice = GetDefaultDevice();
 
-            // Get the current volume level
             float currentVolume = defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar;
-
-            // Calculate the new volume level
             float newVolume = Math.Max(0.0f, Math.Min(1.0f, currentVolume + (volumeChangePercentage / 100.0f)));
-
-            // Set the new volume level
             defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
+            
+            logger.LogAsync(LogType.Debug,$"Volume increased to {newVolume * 100}%");
         }
 
-        static void DecreaseVolume(float volumeChangePercentage)
+        private void DecreaseVolume(float volumeChangePercentage)
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            MMDevice defaultDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            MMDevice defaultDevice = GetDefaultDevice();
 
-            // Get the current volume level
             float currentVolume = defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar;
-
-            // Calculate the new volume level
             float newVolume = Math.Max(0.0f, currentVolume - (volumeChangePercentage / 100.0f));
-
-            // Set the new volume level
             defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
 
-            Console.WriteLine($"Volume decreased to {newVolume * 100}%");
+            logger.LogAsync(LogType.Debug,$"Volume decreased to {newVolume * 100}%");
         }
 
-        static void Max()
+        // Set the volume level to the maximum (1.0)
+        private void Max()
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            MMDevice defaultDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-
-            // Set the volume level to the maximum (1.0)
-            defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar = 1.0f;
+            var device = GetDefaultDevice();
+            device.AudioEndpointVolume.Mute = false;
+            device.AudioEndpointVolume.MasterVolumeLevelScalar = 1.0f;
         }
 
-        static void Mute()
+        // Mute the volume
+        private void Mute()
         {
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            MMDevice defaultDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            GetDefaultDevice().AudioEndpointVolume.Mute = true;
+        }
 
-            // Mute the volume
-            defaultDevice.AudioEndpointVolume.Mute = true;
+        private MMDevice GetDefaultDevice()
+        {
+            return new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
         }
     }
 }
