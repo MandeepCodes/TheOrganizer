@@ -19,6 +19,9 @@ namespace WinUI
         private int serverPort = 12345;
         private UdpClient udpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -29,10 +32,15 @@ namespace WinUI
             searchTextBox.Focus();
             Keyboard.Focus(searchTextBox);
 
+            // Initialize the UDP client
             udpClient = new UdpClient(serverIP, serverPort);
-            Listen();
+            Listen(); // Start listening for UDP messages
         }
 
+        /// <summary>
+        /// Handles the Loaded event of the Window.
+        /// Centers the window on the screen.
+        /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -44,6 +52,10 @@ namespace WinUI
             Top = (screenHeight - windowHeight) / 3;
         }
 
+        /// <summary>
+        /// Handles the TextChanged event of the searchTextBox.
+        /// Sends the entered text as a UDP message.
+        /// </summary>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = searchTextBox.Text;
@@ -51,8 +63,12 @@ namespace WinUI
             udpClient.SendAsync(messageData, messageData.Length);
         }
 
+        /// <summary>
+        /// Listens for incoming UDP messages asynchronously.
+        /// </summary>
         private async void Listen()
         {
+            // Continuously listen for UDP messages
             while (true)
             {
                 var res = await udpClient.ReceiveAsync();
@@ -61,12 +77,15 @@ namespace WinUI
                     var xx = Encoding.UTF8.GetString(res.Buffer);
                     if (xx == "exit")
                     {
+                        // Terminate the application if "exit" message is received
                         Environment.Exit(0);
                     }
                 }
             }
         }
 
-        //TODO: Create a dropdown that shows possible action item and results
+        /// <summary>
+        /// TODO: Create a dropdown that shows possible action items and results
+        /// </summary>
     }
 }
