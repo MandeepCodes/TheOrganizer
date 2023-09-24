@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Search Bar" Height="90" Width="625" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded">
     <Window.Resources>
-        <!-- Define a LinearGradientBrush as a resource -->
+        <!-- Define a LinearGradientBrush as a resource for background -->
         <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Offset="0" Color="#333" />
             <GradientStop Offset="1" Color="#111" />
         </LinearGradientBrush>
 
-        <!-- Define TextBoxStyle as a resource -->
+        <!-- Define TextBoxStyle as a resource for styling TextBox -->
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="Transparent" />
@@ -25,6 +25,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
+                    <!-- Define a custom ControlTemplate for the TextBox -->
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border Background="{StaticResource GradientBackground}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -35,13 +36,25 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Text" Value="" />
+                    <Setter Property="Foreground" Value="#000000" />
+                </Trigger>
+            </Style.Triggers>
+
         </Style>
     </Window.Resources>
     <Grid HorizontalAlignment="Center" Width="600" Height="60">
-        <Border Background="{StaticResource GradientBackground}" CornerRadius="30">
+        <!-- Create a border with gradient background and drop shadow -->
+        <Border Background="{StaticResource GradientBackground}" CornerRadius="40">
             <Border.Effect>
+                <!-- Add a drop shadow effect to the border -->
                 <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.7" Color="Aquamarine" />
             </Border.Effect>
+
+            <!-- Create a TextBox with the defined style -->
             <TextBox x:Name="searchTextBox"
                      Style="{StaticResource TextBoxStyle}"
                      TextChanged="SearchTextBox_TextChanged"

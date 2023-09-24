@@ -30,7 +30,7 @@ namespace WinUI
             Topmost = true; // Always on top
             ShowInTaskbar = false; // Don't show in the taskbar
             searchTextBox.Focus();
-            Keyboard.Focus(searchTextBox);
+            FocusManager.SetFocusedElement(this, searchTextBox);
 
             // Initialize the UDP client
             udpClient = new UdpClient(serverIP, serverPort);
