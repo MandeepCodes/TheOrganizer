@@ -1,8 +1,15 @@
 ﻿{
-	"InternalCommunication": 
+	"InternalSettings": 
 	{
 		"IPAddress" : "127.0.0.1",
-		"Port" : 12345
+		"Port" : 12345,
+		"GUIVisibilityTimeOutSec":10,
+		"GUIDisableTimeOutSec":20
+	},
+	"InternalCommands":
+	{
+		"ShowGUI":"show",
+		"HideGUI":"hide"
 	},
 	"Commands":
 	{

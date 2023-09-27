@@ -9,6 +9,6 @@
         /// Handles global key presses or releases.
         /// </summary>
         /// <param name="state">True for key press, false for key release.</param>
-        void GlobalKeyPress(bool state);
+        void GlobalKeyPress();
     }
 }

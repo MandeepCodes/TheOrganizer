@@ -18,7 +18,7 @@ namespace WinUI
         private string serverIP = "127.0.0.1";
         private int serverPort = 12345;
         private UdpClient udpClient;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -35,6 +35,9 @@ namespace WinUI
             // Initialize the UDP client
             udpClient = new UdpClient(serverIP, serverPort);
             Listen(); // Start listening for UDP messages
+
+            byte[] messageData = Encoding.UTF8.GetBytes(" ");
+            udpClient.SendAsync(messageData, messageData.Length);
         }
 
         /// <summary>
@@ -80,8 +83,26 @@ namespace WinUI
                         // Terminate the application if "exit" message is received
                         Environment.Exit(0);
                     }
+                    else if(xx == "hide")
+                    {
+                        Hide();
+                    }
+                    else if (xx == "show")
+                    {
+                        Show();
+                    }
                 }
             }
+        }
+
+        private void Hide()
+        {
+            Application.Current.MainWindow.Hide();
+        }
+
+        private void Show() 
+        {
+            Application.Current.MainWindow.Show();
         }
 
         /// <summary>

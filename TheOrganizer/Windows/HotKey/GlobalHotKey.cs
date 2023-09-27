@@ -5,7 +5,6 @@ namespace TheOrganizer
     public class GlobalHotkey : WindowBase, IGlobalHotKey
     {
         private IGUIController gUIController = null;
-        private static bool guiState = false;
         private ILogger logger = null;
 
         public override bool RegisterClass()
@@ -33,16 +32,7 @@ namespace TheOrganizer
         {
             // Replace this with your own logic
             logger.LogAsync(LogType.Debug, "Ctrl+Space is pressed!");
-            if (!guiState)
-            {
-                guiState = true;
-                gUIController.GlobalKeyPress(true);
-            }
-            else
-            {
-                guiState = false;
-                gUIController.GlobalKeyPress(false);
-            }
+            gUIController.GlobalKeyPress();
         }
 
         public void UnregisterAsync(string globalHotKey)

@@ -51,7 +51,7 @@ namespace TheOrganizer
                     ep = receivedResult.RemoteEndPoint;
                     string receivedMessage = Encoding.UTF8.GetString(receivedResult.Buffer);
 
-                    if (!string.IsNullOrEmpty(receivedMessage))
+                    if (!string.IsNullOrWhiteSpace(receivedMessage))
                     {
                         // Ingest the received message into the processing pipeline.
                         pipeline.Ingest(receivedMessage);
@@ -71,7 +71,7 @@ namespace TheOrganizer
         {
             try
             {
-                udpServer = new UdpClient(config.GetConfig().InternalCommunication.Port);
+                udpServer = new UdpClient(config.GetConfig().InternalSettings.Port);
                 _ = StartListeningAsync(); // Start listening asynchronously.
                 pipeline.GUICommand += StartSpeaking; // Subscribe to GUICommand event.
                 logger.LogAsync(LogType.Debug, "Server Started");
