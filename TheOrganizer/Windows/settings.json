@@ -3,8 +3,8 @@
 	{
 		"IPAddress" : "127.0.0.1",
 		"Port" : 12345,
-		"GUIVisibilityTimeOutSec":10,
-		"GUIDisableTimeOutSec":20
+		"GUIVisibilityTimeOutSec":30,
+		"GUIDisableTimeOutSec":5000
 	},
 	"InternalCommands":
 	{

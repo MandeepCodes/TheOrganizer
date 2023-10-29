@@ -22,7 +22,7 @@ namespace TheOrganizer
             MasterCommandMap.Add(configuration.Commands.MasterCommands.VolumeCommand,
             (string str) =>
             {
-                logger.LogAsync(LogType.Debug, "Sending data to Volume processing pipline");
+                logger.LogAsync(LogType.DEBUG, "Sending data to Volume processing pipline");
                 var volumeCommandMap = Registrar.GetInstance<IVolumeCommandHandler>().GetStudentCommandMap();
                 pipeline.Process(str, volumeCommandMap);
             });

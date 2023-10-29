@@ -60,7 +60,7 @@ namespace TheOrganizer
             }
             catch (Exception ex)
             {
-                logger.LogAsync(LogType.Error, $"Error in StartListeningAsync: {ex.Message}");
+                logger.LogAsync(LogType.ERROR, $"Error in StartListeningAsync: {ex.Message}");
             }
         }
 
@@ -74,11 +74,11 @@ namespace TheOrganizer
                 udpServer = new UdpClient(config.GetConfig().InternalSettings.Port);
                 _ = StartListeningAsync(); // Start listening asynchronously.
                 pipeline.GUICommand += StartSpeaking; // Subscribe to GUICommand event.
-                logger.LogAsync(LogType.Debug, "Server Started");
+                logger.LogAsync(LogType.DEBUG, "Server Started");
             }
             catch (Exception ex)
             {
-                logger.LogAsync(LogType.Error, $"Error starting server: {ex.Message}");
+                logger.LogAsync(LogType.ERROR, $"Error starting server: {ex.Message}");
             }
         }
 
@@ -99,7 +99,7 @@ namespace TheOrganizer
                 }
                 catch (Exception ex)
                 {
-                    logger.LogAsync(LogType.Error, $"Error in StartSpeaking: {ex.Message}");
+                    logger.LogAsync(LogType.ERROR, $"Error in StartSpeaking: {ex.Message}");
                 }
             }
         }

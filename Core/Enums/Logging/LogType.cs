@@ -8,26 +8,16 @@
         /// <summary>
         /// Informational log message.
         /// </summary>
-        Info,
-
-        /// <summary>
-        /// Warning log message.
-        /// </summary>
-        Warn,
+        INFO,
 
         /// <summary>
         /// Error log message.
         /// </summary>
-        Error,
-
-        /// <summary>
-        /// Fatal log message.
-        /// </summary>
-        Fatal,
+        ERROR,
 
         /// <summary>
         /// Debugging log message.
         /// </summary>
-        Debug
+        DEBUG
     }
 }

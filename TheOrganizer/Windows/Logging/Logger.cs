@@ -14,7 +14,8 @@ namespace TheOrganizer
         /// <param name="message">The message to be logged.</param>
         public void LogAsync(LogType type, string message)
         {
-            Console.WriteLine(message);
+            string dateTime = DateTime.Now.ToString("dd/MMMM/yyyy hh:mm tt");
+            Console.WriteLine(dateTime + ": " + type.ToString() + ": " + message);
         }
 
         public override bool RegisterClass()

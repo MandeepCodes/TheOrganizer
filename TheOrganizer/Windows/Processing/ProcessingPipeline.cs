@@ -44,7 +44,7 @@ namespace TheOrganizer
         /// <param name="str">The string to ingest and process.</param>
         public void Ingest(string str)
         {
-            logger.LogAsync(LogType.Debug, $"Received input: {str}");
+            logger.LogAsync(LogType.DEBUG, $"Received input: {str}");
             Process(str.ToLower());
         }
 
@@ -63,7 +63,7 @@ namespace TheOrganizer
             }
             else
             {
-                logger.LogAsync(LogType.Debug, "No associated command with : " + str);
+                logger.LogAsync(LogType.DEBUG, "No associated command with : " + str);
             }
         }
     }

@@ -27,7 +27,7 @@ namespace TheOrganizer
             }
             catch (Exception ex)
             {
-                logger.LogAsync(LogType.Error, ex.Message);
+                logger.LogAsync(LogType.ERROR, ex.Message);
                 return false;
             }
             return true;

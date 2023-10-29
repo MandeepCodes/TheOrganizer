@@ -53,28 +53,28 @@ namespace TheOrganizer
             StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Up,
             (string str) =>
             {
-                logger.LogAsync(LogType.Debug, "Increasing Volume");
+                logger.LogAsync(LogType.DEBUG, "Increasing Volume");
                 IncreaseVolume(10.0f);
             });
 
             StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Down,
             (string str) =>
             {
-                logger.LogAsync(LogType.Debug, "Decreasing Volume");
+                logger.LogAsync(LogType.DEBUG, "Decreasing Volume");
                 DecreaseVolume(10.0f);
             });
 
             StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Max,
             (string str) =>
             {
-                logger.LogAsync(LogType.Debug, "Increasing Volume");
+                logger.LogAsync(LogType.DEBUG, "Increasing Volume");
                 Max();
             });
 
             StudentCommandMap.Add(configuration.Commands.ChildCommands.VolumeCommands.Mute,
             (string str) =>
             {
-                logger.LogAsync(LogType.Debug, "Decreasing Volume");
+                logger.LogAsync(LogType.DEBUG, "Decreasing Volume");
                 Mute();
             });
         }
@@ -87,7 +87,7 @@ namespace TheOrganizer
             float newVolume = Math.Max(0.0f, Math.Min(1.0f, currentVolume + (volumeChangePercentage / 100.0f)));
             defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
             
-            logger.LogAsync(LogType.Debug,$"Volume increased to {newVolume * 100}%");
+            logger.LogAsync(LogType.DEBUG, $"Volume increased to {newVolume * 100}%");
         }
 
         private void DecreaseVolume(float volumeChangePercentage)
@@ -98,7 +98,7 @@ namespace TheOrganizer
             float newVolume = Math.Max(0.0f, currentVolume - (volumeChangePercentage / 100.0f));
             defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
 
-            logger.LogAsync(LogType.Debug,$"Volume decreased to {newVolume * 100}%");
+            logger.LogAsync(LogType.DEBUG,$"Volume decreased to {newVolume * 100}%");
         }
 
         // Set the volume level to the maximum (1.0)

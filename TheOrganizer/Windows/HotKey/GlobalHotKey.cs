@@ -31,7 +31,7 @@ namespace TheOrganizer
         private void OnCtrlSpacePressed(HotkeyEventArgs e)
         {
             // Replace this with your own logic
-            logger.LogAsync(LogType.Debug, "Ctrl+Space is pressed!");
+            logger.LogAsync(LogType.DEBUG, "Ctrl+Space is pressed!");
             gUIController.GlobalKeyPress();
         }
 
